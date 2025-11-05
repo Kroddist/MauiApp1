@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.QuadraticEquationPage"
+             Title="Квадратное Уравнение"
+             BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+            
+            <Border StrokeThickness="0"
+                    BackgroundColor="White"
+                    Padding="25">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black" Opacity="0.1" Radius="10" Offset="0,3"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Решение квадратного уравнения" 
+                           FontSize="26" 
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource Primary}"/>
+                    <Label Text="ax² + bx + c = 0" 
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           TextColor="Gray"/>
+                    <Label Text="Введите коэффициенты a, b и c" 
+                           FontSize="14" 
+                           HorizontalOptions="Center"
+                           TextColor="LightGray"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border StrokeThickness="0"
+                    BackgroundColor="White"
+                    Padding="25">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black" Opacity="0.1" Radius="10" Offset="0,3"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="20">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Коэффициент a (при x²):" 
+                               FontSize="16" 
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"/>
+                        <Border StrokeThickness="2"
+                                Stroke="{StaticResource Primary}"
+                                BackgroundColor="#F8F9FA"
+                                Padding="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10"/>
+                            </Border.StrokeShape>
+                            <Entry x:Name="EntryA" 
+                                   Placeholder="Введите значение a (не может быть 0)"
+                                   Keyboard="Numeric"
+                                   FontSize="18"
+                                   TextColor="Black"
+                                   PlaceholderColor="Gray"
+                                   TextChanged="OnEntryChanged"/>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Коэффициент b (при x):" 
+                               FontSize="16" 
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"/>
+                        <Border StrokeThickness="2"
+                                Stroke="{StaticResource Primary}"
+                                BackgroundColor="#F8F9FA"
+                                Padding="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10"/>
+                            </Border.StrokeShape>
+                            <Entry x:Name="EntryB" 
+                                   Placeholder="Введите значение b"
+                                   Keyboard="Numeric"
+                                   FontSize="18"
+                                   TextColor="Black"
+                                   PlaceholderColor="Gray"
+                                   TextChanged="OnEntryChanged"/>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Коэффициент c (свободный член):" 
+                               FontSize="16" 
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"/>
+                        <Border StrokeThickness="2"
+                                Stroke="{StaticResource Primary}"
+                                BackgroundColor="#F8F9FA"
+                                Padding="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10"/>
+                            </Border.StrokeShape>
+                            <Entry x:Name="EntryC" 
+                                   Placeholder="Введите значение c"
+                                   Keyboard="Numeric"
+                                   FontSize="18"
+                                   TextColor="Black"
+                                   PlaceholderColor="Gray"
+                                   TextChanged="OnEntryChanged"/>
+                        </Border>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button Grid.Column="0" 
+                        Text="Решить" 
+                        Clicked="OnSolveClicked"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        CornerRadius="12"
+                        HeightRequest="55">
+                    <Button.Shadow>
+                        <Shadow Brush="Black" Opacity="0.2" Radius="10" Offset="0,3"/>
+                    </Button.Shadow>
+                </Button>
+                
+                <Button Grid.Column="1" 
+                        Text="Очистить" 
+                        Clicked="OnClearClicked"
+                        BackgroundColor="#FF6B6B"
+                        TextColor="White"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        CornerRadius="12"
+                        HeightRequest="55">
+                    <Button.Shadow>
+                        <Shadow Brush="Black" Opacity="0.2" Radius="10" Offset="0,3"/>
+                    </Button.Shadow>
+                </Button>
+            </Grid>
+
+            <Border x:Name="EquationBorder"
+                    IsVisible="False"
+                    StrokeThickness="0"
+                    BackgroundColor="White"
+                    Padding="20">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black" Opacity="0.1" Radius="8" Offset="0,2"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Текущее уравнение:" 
+                           FontSize="14" 
+                           TextColor="Gray"
+                           HorizontalOptions="Center"/>
+                    <Label x:Name="EquationLabel" 
+                           Text="" 
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Primary}"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border x:Name="ResultBorder"
+                    IsVisible="False"
+                    StrokeThickness="0"
+                    BackgroundColor="White"
+                    Padding="25">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black" Opacity="0.15" Radius="15" Offset="0,5"/>
+                </Border.Shadow>
+                <VerticalStackLayout x:Name="ResultContent" Spacing="15"/>
+            </Border>
+
+            <Border x:Name="StepsBorder"
+                    IsVisible="False"
+                    StrokeThickness="0"
+                    BackgroundColor="White"
+                    Padding="25">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black" Opacity="0.1" Radius="10" Offset="0,3"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="📝 Ход решения:" 
+                           FontSize="22" 
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Primary}"/>
+                    <VerticalStackLayout x:Name="StepsContent" Spacing="12"/>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
+

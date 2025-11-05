@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.TicTacToePage"
+             Title="Крестики-Нолики"
+             BackgroundColor="#F5F5F5">
+
+    <Grid Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" 
+                StrokeThickness="0"
+                BackgroundColor="White"
+                Padding="20"
+                Margin="0,0,0,20">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="15"/>
+            </Border.StrokeShape>
+            <Border.Shadow>
+                <Shadow Brush="Black" Opacity="0.1" Radius="10" Offset="0,3"/>
+            </Border.Shadow>
+            <VerticalStackLayout Spacing="15">
+                <Label Text="Крестики-Нолики" 
+                       FontSize="32" 
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="{StaticResource Primary}"/>
+                
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                    <Border Grid.Column="0" 
+                            StrokeThickness="0"
+                            BackgroundColor="#E3F2FD"
+                            Padding="15,10">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Игрок X" 
+                                   FontSize="16" 
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   TextColor="#1976D2"/>
+                            <Label x:Name="ScoreXLabel" 
+                                   Text="Побед: 0" 
+                                   FontSize="14" 
+                                   HorizontalOptions="Center"
+                                   TextColor="#1976D2"/>
+                        </VerticalStackLayout>
+                    </Border>
+                    
+                    <Border Grid.Column="1" 
+                            StrokeThickness="0"
+                            BackgroundColor="#FFEBEE"
+                            Padding="15,10">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Игрок O" 
+                                   FontSize="16" 
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   TextColor="#D32F2F"/>
+                            <Label x:Name="ScoreOLabel" 
+                                   Text="Побед: 0" 
+                                   FontSize="14" 
+                                   HorizontalOptions="Center"
+                                   TextColor="#D32F2F"/>
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+
+        <Border Grid.Row="1" 
+                x:Name="CurrentPlayerBorder"
+                StrokeThickness="3"
+                Stroke="{StaticResource Primary}"
+                BackgroundColor="White"
+                Padding="15"
+                Margin="0,0,0,20">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="12"/>
+            </Border.StrokeShape>
+            <Label x:Name="CurrentPlayerLabel" 
+                   Text="Ход игрока: X" 
+                   FontSize="22" 
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="{StaticResource Primary}"/>
+        </Border>
+
+        <Border Grid.Row="2"
+                StrokeThickness="0"
+                BackgroundColor="White"
+                Padding="15"
+                VerticalOptions="Center">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20"/>
+            </Border.StrokeShape>
+            <Border.Shadow>
+                <Shadow Brush="Black" Opacity="0.15" Radius="20" Offset="0,5"/>
+            </Border.Shadow>
+            <Grid x:Name="GameBoard" 
+                  RowSpacing="10" 
+                  ColumnSpacing="10"
+                  Padding="10"
+                  HeightRequest="350"
+                  WidthRequest="350">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Row="0" Grid.Column="0" 
+                        x:Name="Btn00"
+                        Text=""
+                        FontSize="48"
+                        FontAttributes="Bold"
+                        BackgroundColor="#F5F5F5"
+                        TextColor="#1976D2"
+                        CornerRadius="15"
+                        Clicked="OnCellClicked"
+                        CommandParameter="0,0"/>
+
+                <Button Grid.Row="0" Grid.Column="1" 
+                        x:Name="Btn01"
+                        Text=""
+                        FontSize="48"
+                        FontAttributes="Bold"
+                        BackgroundColor="#F5F5F5"
+                        TextColor="#1976D2"
+                        CornerRadius="15"
+                        Clicked="OnCellClicked"
+                        CommandParameter="0,1"/>
+
+                <Button Grid.Row="0" Grid.Column="2" 
+                        x:Name="Btn02"
+                        Text=""
+                        FontSize="48"
+                        FontAttributes="Bold"
+                        BackgroundColor="#F5F5F5"
+                        TextColor="#1976D2"
+                        CornerRadius="15"
+                        Clicked="OnCellClicked"
+                        CommandParameter="0,2"/>
+
+                <Button Grid.Row="1" Grid.Column="0" 
+                        x:Name="Btn10"
+                        Text=""
+                        FontSize="48"
+                        FontAttributes="Bold"
+                        BackgroundColor="#F5F5F5"
+                        TextColor="#1976D2"
+                        CornerRadius="15"
+                        Clicked="OnCellClicked"
+                        CommandParameter="1,0"/>
+
+                <Button Grid.Row="1" Grid.Column="1" 
+                        x:Name="Btn11"
+                        Text=""
+                        FontSize="48"
+                        FontAttributes="Bold"
+                        BackgroundColor="#F5F5F5"
+                        TextColor="#1976D2"
+                        CornerRadius="15"
+                        Clicked="OnCellClicked"
+                        CommandParameter="1,1"/>
+
+                <Button Grid.Row="1" Grid.Column="2" 
+                        x:Name="Btn12"
+                        Text=""
+                        FontSize="48"
+                        FontAttributes="Bold"
+                        BackgroundColor="#F5F5F5"
+                        TextColor="#1976D2"
+                        CornerRadius="15"
+                        Clicked="OnCellClicked"
+                        CommandParameter="1,2"/>
+
+                <Button Grid.Row="2" Grid.Column="0" 
+                        x:Name="Btn20"
+                        Text=""
+                        FontSize="48"
+                        FontAttributes="Bold"
+                        BackgroundColor="#F5F5F5"
+                        TextColor="#1976D2"
+                        CornerRadius="15"
+                        Clicked="OnCellClicked"
+                        CommandParameter="2,0"/>
+
+                <Button Grid.Row="2" Grid.Column="1" 
+                        x:Name="Btn21"
+                        Text=""
+                        FontSize="48"
+                        FontAttributes="Bold"
+                        BackgroundColor="#F5F5F5"
+                        TextColor="#1976D2"
+                        CornerRadius="15"
+                        Clicked="OnCellClicked"
+                        CommandParameter="2,1"/>
+
+                <Button Grid.Row="2" Grid.Column="2" 
+                        x:Name="Btn22"
+                        Text=""
+                        FontSize="48"
+                        FontAttributes="Bold"
+                        BackgroundColor="#F5F5F5"
+                        TextColor="#1976D2"
+                        CornerRadius="15"
+                        Clicked="OnCellClicked"
+                        CommandParameter="2,2"/>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="3" 
+              ColumnDefinitions="*,*" 
+              ColumnSpacing="10" 
+              Margin="0,20,0,0">
+            <Button Grid.Column="0" 
+                    Text="Новая игра" 
+                    Clicked="OnNewGameClicked"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="White"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    CornerRadius="12"
+                    HeightRequest="55">
+                <Button.Shadow>
+                    <Shadow Brush="Black" Opacity="0.2" Radius="10" Offset="0,3"/>
+                </Button.Shadow>
+            </Button>
+            
+            <Button Grid.Column="1" 
+                    Text="Сбросить счет" 
+                    Clicked="OnResetScoreClicked"
+                    BackgroundColor="#FF6B6B"
+                    TextColor="White"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    CornerRadius="12"
+                    HeightRequest="55">
+                <Button.Shadow>
+                    <Shadow Brush="Black" Opacity="0.2" Radius="10" Offset="0,3"/>
+                </Button.Shadow>
+            </Button>
+        </Grid>
+    </Grid>
+
+</ContentPage>
+
